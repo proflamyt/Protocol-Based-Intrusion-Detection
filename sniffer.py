@@ -1,10 +1,11 @@
 import pyshark
 
 # initialize a capture object
-capture = pyshark.LiveCapture(interface='eth0')
+def capture() -> list:
 
-# start capturing packets
-capture.sniff(timeout=50)
+    capture = pyshark.LiveCapture(interface='eth0', bpf_filter='tcp port 80 or tcp port 443')
 
-# convert the captured packets to a list
-packets = list(capture)
+    capture.sniff(timeout=50)
+
+    return list(capture)
+
